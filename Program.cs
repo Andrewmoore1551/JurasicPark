@@ -53,7 +53,7 @@ namespace JurasicPark
             var kodak = new Dino()
             {
                 Name = "Kodak",
-                DietType = "Herbivore",
+                DietType = "herbivore",
                 EnclosureNumber = 2,
                 Weight = 300,
             };
@@ -77,7 +77,8 @@ namespace JurasicPark
                 Console.WriteLine("ADD - Add a new dino");
                 Console.WriteLine("SEE - See all the dinos");
                 Console.WriteLine("TRANSFER - Transfer a dino");
-                Console.WriteLine("UPDATE - Update a dino");
+                Console.WriteLine("REMOVE - Remove a dino");
+                Console.WriteLine("SUMMARY - View amount of carnivores and herbivores");
 
 
 
@@ -110,14 +111,22 @@ namespace JurasicPark
                 if (choice == "REMOVE")
                 {
                     Console.Write("Whats the name of the dino you want to delete? ");
-                    var dinoToDelete = Console.ReadLine();
-                    dinos.First(firstDino => firstDino.Name == dinoToDelete);
+                    var dinoToDeleteName = Console.ReadLine();
+                    var dinoToDelete = dinos.First(firstDino => firstDino.Name == dinoToDeleteName);
+                    dinos.Remove(dinoToDelete);
                 }
                 if (choice == "TRANSFER")
                 {
                     Console.Write("What is the name of the dino you want to transfer? ");
-                    var dinoToTransfer = Console.ReadLine();
-                    dinos.First(firstdino => firstdino.Name == dinoToTransfer);
+                    var dinoToTransferName = Console.ReadLine();
+                    var dinoToTransfer = dinos.FindIndex(firstdino => firstdino.Name == dinoToTransferName);
+                    Console.WriteLine("Where would you like to transfer this dino to? ");
+                    var newEnclosureNumber = int.Parse(Console.ReadLine());
+                    dinos[dinoToTransfer].EnclosureNumber = newEnclosureNumber;
+
+
+
+
                 }
                 if (choice == "SEE")
                 {
@@ -129,6 +138,16 @@ namespace JurasicPark
 
 
                 }
+                if (choice == "SUMMARY")
+                {
+                    var carnivores = dinos.Where(dino => dino.DietType == "carnivore");
+                    var numberOfCarnivores = carnivores.Count();
+                    var numberOfDinos = dinos.Count();
+                    var numberOfHerbivores = numberOfDinos - numberOfCarnivores;
+                    Console.WriteLine($"There are {numberOfCarnivores} number of carnivores. There are {numberOfHerbivores} number of herbivores");
+
+                }
+
             }
 
 
