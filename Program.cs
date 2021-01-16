@@ -1,12 +1,158 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace JurasicPark
 {
-  class Program
-  {
-    static void Main(string[] args)
+    class Dino
     {
-      Console.WriteLine("Welcome to C#");
+        public string Name { get; set; }
+        public string DietType { get; set; }
+        public int EnclosureNumber { get; set; }
+        public int Weight { get; set; }
+
+
+
     }
-  }
+    class Program
+
+
+    {
+        static void BannerMessage(string message)
+        {
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine(message);
+            Console.WriteLine();
+            Console.WriteLine();
+
+
+        }
+
+
+        static void Main(string[] args)
+
+        {
+            var sadie = new Dino();
+
+
+            sadie.Name = "Sadie";
+            sadie.DietType = "herbivore";
+            sadie.EnclosureNumber = 5;
+            sadie.Weight = 200;
+
+
+            var russell = new Dino()
+            {
+                Name = "Russell",
+                DietType = "carnivore",
+                EnclosureNumber = 3,
+                Weight = 150,
+            };
+
+            var kodak = new Dino()
+            {
+                Name = "Kodak",
+                DietType = "Herbivore",
+                EnclosureNumber = 2,
+                Weight = 300,
+            };
+            var dinos = new List<Dino>();
+            dinos.Add(sadie);
+            dinos.Add(russell);
+            dinos.Add(kodak);
+
+            BannerMessage("Welcome to JurasicPark");
+
+            var userHasChosenToQuit = false;
+
+            while (userHasChosenToQuit == false)
+            {
+
+
+
+
+                Console.WriteLine();
+                Console.WriteLine("Menu:");
+                Console.WriteLine("ADD - Add a new dino");
+                Console.WriteLine("SEE - See all the dinos");
+                Console.WriteLine("TRANSFER - Transfer a dino");
+                Console.WriteLine("UPDATE - Update a dino");
+
+
+
+                Console.WriteLine("QUIT _ Quit the app");
+                Console.WriteLine();
+                Console.Write("What is your choice?");
+                var choice = Console.ReadLine().ToUpper().Trim();
+
+
+                if (choice == "QUIT")
+                {
+                    userHasChosenToQuit = true;
+                }
+                if (choice == "ADD")
+                {
+                    var dino = new Dino();
+                    Console.Write("What is the dinos Name? ");
+                    dino.Name = Console.ReadLine();
+                    Console.Write("What is the diet type? ");
+                    dino.DietType = Console.ReadLine();
+                    Console.Write("What is the enclosureNumber? ");
+                    dino.EnclosureNumber = int.Parse(Console.ReadLine());
+                    Console.Write("What is the weight? ");
+                    dino.Weight = int.Parse(Console.ReadLine());
+                    dinos.Add(dino);
+
+
+
+                }
+                if (choice == "REMOVE")
+                {
+                    Console.Write("Whats the name of the dino you want to delete? ");
+                    var dinoToDelete = Console.ReadLine();
+                    dinos.First(firstDino => firstDino.Name == dinoToDelete);
+                }
+                if (choice == "TRANSFER")
+                {
+                    Console.Write("What is the name of the dino you want to transfer? ");
+                    var dinoToTransfer = Console.ReadLine();
+                    dinos.First(firstdino => firstdino.Name == dinoToTransfer);
+                }
+                if (choice == "SEE")
+                {
+                    Console.WriteLine("list of dinos");
+                    foreach (var dino in dinos)
+                    {
+                        Console.WriteLine($"{dino.Name} is a {dino.DietType} and is in enclosure number {dino.EnclosureNumber} weighing {dino.Weight} lbs");
+                    }
+
+
+                }
+            }
+
+
+
+
+
+
+            //List<Dinosaur>
+
+            // 
+
+
+            //view
+            // add
+            // remove
+            // transfer
+            // summary
+            // quit
+
+
+
+            BannerMessage("Goodbye");
+        }
+
+    }
+
 }
